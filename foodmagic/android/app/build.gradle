@@ -1,0 +1,119 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.google.ar.sceneform.plugin'
+android {
+    compileSdkVersion 29
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.example.foodmagic"
+        minSdkVersion 24
+        targetSdkVersion 29
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    // Sceneform libraries use language constructs from Java 8.
+    // Add these compile options if targeting minSdkVersion < 26.
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+
+dependencies {
+    // Provides ArFragment, and other UX resources.
+    implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.8.0'
+}
+
+sceneform.asset('data/AlooTikki.fbx',
+        'default',
+        'data/AlooTikki.sfa',
+        'src/main/assets/AlooTikki')
+
+sceneform.asset('data/ClassicNV.fbx',
+        'default',
+        'data/ClassicNV.sfa',
+        'src/main/assets/ClassicNV')
+
+sceneform.asset('data/ClassicV.fbx',
+        'default',
+        'data/ClassicV.sfa',
+        'src/main/assets/ClassicV')
+
+sceneform.asset('data/DoublePatty.fbx',
+        'default',
+        'data/DoublePatty.sfa',
+        'src/main/assets/DoublePatty')
+
+sceneform.asset('data/Farmhouse.fbx',
+        'default',
+        'data/Farmhouse.sfa',
+        'src/main/assets/Farmhouse')
+
+sceneform.asset('data/IndieCT.fbx',
+        'default',
+        'data/IndieCT.sfa',
+        'src/main/assets/IndieCT')
+
+sceneform.asset('data/MushroomF.fbx',
+        'default',
+        'data/MushroomF.sfa',
+        'src/main/assets/MushroomF')
+
+sceneform.asset('data/PaneerBurger.fbx',
+        'default',
+        'data/PaneerBurger.sfa',
+        'src/main/assets/PaneerBurger')
+
+sceneform.asset('data/Pepperoni.fbx',
+        'default',
+        'data/Pepperoni.sfa',
+        'src/main/assets/Pepperoni')
+
+sceneform.asset('data/VeggieParadise.fbx',
+        'default',
+        'data/VeggieParadise.sfa',
+        'src/main/assets/VeggieParadise')
